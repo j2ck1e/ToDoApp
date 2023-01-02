@@ -33,8 +33,6 @@ class MainActivity : AppCompatActivity() {
 
         data = ArrayList<ToDoItem>()
 
-
-
         adapter = CustomAdapter(data)
         recyclerView.adapter = adapter
     }
