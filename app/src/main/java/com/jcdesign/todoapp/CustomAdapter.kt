@@ -1,4 +1,3 @@
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,8 +6,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jcdesign.todoapp.R
 import com.jcdesign.todoapp.ToDoItem
 
-class CustomAdapter(private val mList: MutableList<ToDoItem>) :
+class CustomAdapter(private var mList: MutableList<ToDoItem>) :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val title: TextView = itemView.findViewById(R.id.item_recycler_title)
+        val description: TextView = itemView.findViewById(R.id.item_recycler_description)
+        val number: TextView = itemView.findViewById(R.id.item_recycler_number)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -24,22 +29,21 @@ class CustomAdapter(private val mList: MutableList<ToDoItem>) :
         holder.number.text = mList[position].number.toString()
     }
 
+
+    fun updateList(updatedList: List<ToDoItem>){
+        mList = updatedList.toMutableList()
+        notifyDataSetChanged() // refresh recyclerView
+    }
+
     override fun getItemCount(): Int {
         return mList.size
     }
 
 
-    fun addItem(item: ToDoItem){
-        mList.add(item)
-        notifyDataSetChanged() // refresh recyclerView
-    }
 
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val title: TextView = itemView.findViewById(R.id.item_recycler_title)
-        val description: TextView = itemView.findViewById(R.id.item_recycler_description)
-        val number: TextView = itemView.findViewById(R.id.item_recycler_number)
-    }
+
+
 
 
 }
