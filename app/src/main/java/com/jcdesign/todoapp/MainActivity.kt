@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
-import android.view.WindowManager
 import android.widget.LinearLayout
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -16,7 +15,7 @@ import androidx.room.Room
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jcdesign.todoapp.room.AppDatabase
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnItemClick {
     private lateinit var stubContainer: LinearLayout
     private lateinit var fab: FloatingActionButton
     private lateinit var recyclerView: RecyclerView
@@ -39,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         }
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        adapter = CustomAdapter(mutableListOf())
+        adapter = CustomAdapter(mutableListOf(), this)
 
         recyclerView.adapter = adapter
 
@@ -54,20 +53,28 @@ class MainActivity : AppCompatActivity() {
         todoLiveData.observe(this, Observer {
             adapter.updateList(it)
             Log.d("MyLog", "-> $it")
-            if (it.isEmpty()) {
-                stubContainer.visibility = VISIBLE
-                recyclerView.visibility = INVISIBLE
-            } else {
-                stubContainer.visibility = INVISIBLE
-                recyclerView.visibility = VISIBLE
-            }
+            screenDataValidation(it)
         })
 
+    }
+
+    private fun screenDataValidation(list: List<ToDoItem>) {
+        if (list.isEmpty()) {
+            stubContainer.visibility = VISIBLE
+            recyclerView.visibility = INVISIBLE
+        } else {
+            stubContainer.visibility = INVISIBLE
+            recyclerView.visibility = VISIBLE
+        }
     }
 
     fun addItem(item: ToDoItem) {
         stubContainer.visibility = INVISIBLE
         recyclerView.visibility = VISIBLE
         db.todoDao().insertItem(item)
+    }
+
+    override fun itemClicked(item: ToDoItem) {
+        Log.d("itemClicked", "itemClicked - > $item")
     }
 }
