@@ -7,6 +7,6 @@ import androidx.room.PrimaryKey
 data class ToDoItem(
     @PrimaryKey(autoGenerate = true) val id: Int,
     val title: String,
-    val description: String,
-    val number: Int
+    val description: String/*,
+    val number: Int*/
 )

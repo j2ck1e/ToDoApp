@@ -18,7 +18,7 @@ class CustomDialog(var activity: MainActivity, private val isNewItem: Boolean, p
 
     private lateinit var titleInput: EditText
     private lateinit var descriptionInput: EditText
-    private lateinit var numberInput: EditText
+    //private lateinit var numberInput: EditText
     private lateinit var labelText: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +43,7 @@ class CustomDialog(var activity: MainActivity, private val isNewItem: Boolean, p
         labelText.text = "Update Item"
         titleInput.setText(item?.title)
         descriptionInput.setText(item?.description)
-        numberInput.setText(item?.number.toString())
+        //numberInput.setText(item?.number.toString())
     }
 
     private fun createNewItem() {
@@ -55,7 +55,7 @@ class CustomDialog(var activity: MainActivity, private val isNewItem: Boolean, p
         cancelButton = findViewById(R.id.dialog_cancel)
         titleInput = findViewById(R.id.dialog_input_title)
         descriptionInput = findViewById(R.id.dialog_input_description)
-        numberInput = findViewById(R.id.dialog_input_number)
+        //numberInput = findViewById(R.id.dialog_input_number)
         labelText = findViewById<TextView>(R.id.dialog_label)
         okButton.setOnClickListener(this)
         cancelButton.setOnClickListener(this)
@@ -91,18 +91,18 @@ class CustomDialog(var activity: MainActivity, private val isNewItem: Boolean, p
     private fun okUpdateItemBeenClicked() {
         val inputTitleResult = titleInput.text.toString()
         val inputDescriptionResult = descriptionInput.text.toString()
-        val inputNumberResult = numberInput.text.toString().toInt()
+        //val inputNumberResult = numberInput.text.toString().toInt()
         activity.updateItem(ToDoItem(item!!.id, inputTitleResult,
-            inputDescriptionResult,
-            inputNumberResult))
+            inputDescriptionResult/*,
+            inputNumberResult*/))
     }
 
     private fun okNewItemBeenClicked() {
         val inputTitleResult = titleInput.text.toString()
         val inputDescriptionResult = descriptionInput.text.toString()
-        val inputNumberResult = numberInput.text.toString().toInt()
+        //val inputNumberResult = numberInput.text.toString().toInt()
         activity.addItem(ToDoItem(0, inputTitleResult,
-            inputDescriptionResult,
-            inputNumberResult))
+            inputDescriptionResult/*,
+            inputNumberResult*/))
     }
 }
