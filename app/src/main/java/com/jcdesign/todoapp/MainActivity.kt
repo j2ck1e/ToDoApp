@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity(), OnItemClick {
         fab = findViewById(R.id.main_fab)
 
         fab.setOnClickListener {
-            val dialog = CustomDialog(this)
+            val dialog = CustomDialog(this, true, null)
             dialog.show()
         }
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -74,7 +74,17 @@ class MainActivity : AppCompatActivity(), OnItemClick {
         db.todoDao().insertItem(item)
     }
 
+    fun updateItem(item: ToDoItem) {
+        db.todoDao().updateItem(item)
+    }
+
+    fun deleteItem(item: ToDoItem) {
+        db.todoDao().deleteItem(item)
+    }
+
     override fun itemClicked(item: ToDoItem) {
         Log.d("itemClicked", "itemClicked - > $item")
+        val dialog = CustomDialog(this, false, item)
+        dialog.show()
     }
 }
