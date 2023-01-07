@@ -1,6 +1,7 @@
 package com.jcdesign.todoapp
 
 import CustomAdapter
+import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
@@ -41,6 +42,7 @@ class MainActivity : AppCompatActivity(), OnItemClick {
         fab = findViewById(R.id.main_fab)
 
         fab.setOnClickListener {
+
             val dialog = CustomDialog(this, true, null)
             dialog.show()
         }
